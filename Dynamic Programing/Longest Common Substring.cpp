@@ -1,101 +1,62 @@
 // { Driver Code Starts
 #include<bits/stdc++.h>
-const int mod=1e9+7;
 using namespace std;
 
  // } Driver Code Ends
-// function to find longest common subsequence
-
-
-
-
-class Solution
-{
+class Solution{
     public:
-    //Function to find the length of longest common subsequence in two strings.
     
-    // TOP DOWN APPROACH
-    
-    int lcs1(int x, int y, string s1, string s2)
+    int longestCommonSubstr (string s1, string s2, int n, int m)
     {
         int t[1001][1001];
         
-        for(int i = 0; i<x+1 ; i++){
-            for(int j = 0; j<y+1 ; j++){
-                if(i == 0 || j == 0)
-                    t[i][j] = 0;
+        for(int i = 0; i<n+1; i++){
+            for(int j = 0; j<n+1 ; j++){
+                if(i ==0 || j == 0)
+                t[i][j] = 0;
             }
         }
         
+        for(int i = 1 ; i<n+1 ; i++){
+            for(int j = 1 ; j<m+1; j++){
+                
+                if(s1[i-1] == s2[j-1])
+                t[i][j] = 1 + t[i-1][j-1];
+                else
+                t[i][j] = 0;
+                
+            }
+        }
         
-      for(int i = 1; i<x+1 ; i++){
-      for(int j = 1; j<y+1 ; j++){
+        int max = -1;
         
-        if(s1[i-1] == s2[j-1])
-        t[i][j] = (1+ t[i-1][j-1]);
-        else
-        t[i][j] = max(t[i-1][j],t[i][j-1]);
+        for(int i = 0; i<n+1; i++){
+            for(int j = 0; j<m+1; j++){
+                
+                if(t[i][j] > max)
+                max = t[i][j];
+                
+            }
+        }
         
-      }
-      }
-      
-      return t[x][y];
+        return max;
     }
-    
-    int lcs(int x, int y, string s1, string s2){
-        
-        return lcs1(x,y,s1,s2);
-    }
-    
-    
-    
-    
 };
 
-
-// RECURSIVE + MEMORIZATION
-
-
-// static int t[1001][1001];
-
-// class Solution
-// {
-//     public:
-//     //Function to find the length of longest common subsequence in two strings.
-//     int lcs1(int x, int y, string s1, string s2)
-//     {
-//         if(x == 0 || y == 0)
-//         return 0;
-        
-//         if(t[x][y]!=-1)
-//         return t[x][y];
-        
-//         if(s1[x-1] == s2[y-1])
-//         return t[x][y] = (1+ lcs1(x-1,y-1,s1,s2));
-//         else
-//         return t[x][y] = max(lcs1(x-1,y,s1,s2),lcs1(x,y-1,s1,s2));
-//     }
-    
-//     int lcs(int x, int y, string s1, string s2){
-//         memset(t,-1,sizeof(t));
-//         return lcs1(x,y,s1,s2);
-//     }
-// };
-
-
 // { Driver Code Starts.
+
 int main()
 {
-    int t,n,k,x,y;
-    cin>>t;
-    while(t--)
+    int t; cin >> t;
+    while (t--)
     {
-        cin>>x>>y;          // Take size of both the strings as input
-        string s1,s2;
-        cin>>s1>>s2;        // Take both the string as input
+        int n, m; cin >> n >> m;
+        string s1, s2;
+        cin >> s1 >> s2;
         Solution ob;
-        cout << ob.lcs(x, y, s1, s2) << endl;
+
+        cout << ob.longestCommonSubstr (s1, s2, n, m) << endl;
     }
-    return 0;
 }
+// Contributed By: Pranay Bansal
   // } Driver Code Ends
