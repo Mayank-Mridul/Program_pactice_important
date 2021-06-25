@@ -41,7 +41,7 @@ long long merge_sort(int a[], int left, int right){
 
         long long count_left = merge_sort(a,left,mid);
         long long count_right = merge_sort(a,mid+1,right);
-        long long my_count = megre(a,left,mid+1,right);
+        long long my_count = merge(a,left,mid+1,right);
 
         return my_count+count_left+count_right;
 
